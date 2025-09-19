@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NEOM — المنصة الأنيقة</title>
+  <meta name="description" content="NEOM — منصة أنيقة وراقية للتعلّم. دورات ومقالات وتجربة مستخدم سلسة."/>
+  <meta name="theme-color" content="#0f2027" />
+
+  <!-- ستايل داخلي (مظلم، أنيق، متجاوب) -->
+  <style>
+    :root{
+      --bg:#07080a; --card:#0f1b22; --muted:#9aa6ae; --accent:#1fb6ff; --text:#e6eef3;
+      --container:1100px; font-family: "Noto Kufi Arabic", "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;background:linear-gradient(180deg,rgba(5,8,10,0.95),rgba(10,14,18,0.95)),var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;direction:rtl}
+    .container{max-width:var(--container);margin:18px auto;padding:0 18px}
+    header{display:flex;align-items:center;gap:12px;padding:10px 0}
+    .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--text);font-weight:700}
+    .brand img{width:52px;height:52px;border-radius:10px;object-fit:cover}
+    nav{margin-left:auto;display:flex;gap:10px}
+    nav button{background:transparent;border:0;color:var(--muted);padding:8px;border-radius:8px;cursor:pointer}
+    nav button:hover{color:var(--text);background:rgba(255,255,255,0.02)}
+    .hero{border-radius:14px;overflow:hidden;display:grid;margin-top:12px;background:linear-gradient(180deg,rgba(0,0,0,0.25),rgba(0,0,0,0.05))}
+    .hero .bg{background-image:url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1400&q=80');background-size:cover;background-position:center;filter:brightness(0.6);min-height:260px}
+    .hero .inner{padding:26px}
+    h1{margin:0;font-size:26px}
+    .lead{color:var(--muted);margin-top:8px}
+    .cta{margin-top:14px}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:700;margin-right:8px;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .primary{background:linear-gradient(90deg,var(--accent),#6ce0ff);color:#021018}
+    .outline{background:transparent;color:var(--text)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+    .card{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.6)}
+    footer{padding:16px;text-align:center;color:var(--muted);margin-top:18px}
+    /* simple page container switching */
+    .view{display:none}
+    .view.active{display:block}
+    @media(min-width:900px){ .hero{grid-template-columns:1fr} .hero .bg{min-height:360px} }
+  </style>
+
+  <!-- إنشاء manifest ديناميكيًا (يحتوي أيقونات بصيغة data:) -->
+  <script>
+    (function(){
+      const iconBase64 = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAABYElEQVRYR+2XsQ2CMBCGfQPoBjANqQ1kg7iA1CE7kAtogroSdxAVogtUo2jJD3eTQKdxOejZPuxdrFJ1y7IgAdgBKgBbwBuQAH4BjQC94tXv7N9l6I6t5o4A2c9S8Sgv5xDnBNjgD+BRXswAyTYJmkhScJf04o2YUdDPJCsT7sGMBFYygrSNYUkXmCIkT7jMUKsvbS+FRCLGUbxtTH5qbhU93oJKGMrn8Xcd46CcexNiBfZ1BynAjJLBxGlLFGSmnsjIr7SmrMZJ2yFkpYsa8iTkI4fCzVv0AMsdE+GnOJ8n/3jZbwZG1EzXMWZxZ3gUudyywMWFVG0OSBajQlX+z3fQrm7mJuxcPwI8AyUKqH4tMfETAAAAAElFTkSuQmCC";
+      const manifest = {
+        name: "NEOM — المنصة الأنيقة",
+        short_name: "NEOM",
+        description: "NEOM — منصة أنيقة وراقية للتعلّم.",
+        start_url: ".",
+        scope: "/",
+        display: "standalone",
+        orientation: "portrait",
+        background_color: "#08090a",
+        theme_color: "#0f2027",
+        icons: [
+          { src: "data:image/png;base64,"+iconBase64, sizes:"192x192", type:"image/png", purpose:"any maskable" },
+          { src: "data:image/png;base64,"+iconBase64, sizes:"512x512", type:"image/png", purpose:"any maskable" }
+        ]
+      };
+      const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('link');
+      link.rel = 'manifest';
+      link.href = url;
+      document.head.appendChild(link);
+      // also set favicon quickly
+      const ico = document.createElement('link'); ico.rel='icon'; ico.href = "data:image/png;base64,"+iconBase64; document.head.appendChild(ico);
+      // expose iconBase64 for page use
+      window.__NEOM_ICON_BASE64 = iconBase64;
+    })();
+  </script>
+
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a class="brand" href="#" data-link="/" onclick="router(event)"><img id="brandImg" src="" alt="NEOM logo"><span>NEOM</span></a>
+      <nav>
+        <button data-link="/" onclick="router(event)">الرئيسية</button>
+        <button data-link="/courses.html" onclick="router(event)">الدورات</button>
+        <button data-link="/about.html" onclick="router(event)">حول</button>
+        <button data-link="/contact.html" onclick="router(event)">تواصل</button>
+      </nav>
+    </header>
+
+    <!-- Views (single-file SPA style) -->
+    <main>
+      <section id="home" class="view active">
+        <div class="hero">
+          <div class="bg" aria-hidden="true"></div>
+          <div class="inner">
+            <h1>تعلّم بطريقة أنيقة — NEOM</h1>
+            <p class="lead">دورات احترافية، مقالات متقدمة وتجربة مستخدم سلسة. هذا التطبيق قابل للتثبيت ويعمل أوفلاين.</p>
+            <div class="cta">
+              <a class="btn primary" href="#" onclick="routerTo('/courses.html')">ابدأ التعلم</a>
+              <button id="installBtn" class="btn outline">تثبيت التطبيق</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="grid">
+          <article class="card"><h3>تصميم واجهات</h3><p>دورة مركزة على UI/UX وطرق العمل الحديثة.</p></article>
+          <article class="card"><h3>برمجة الويب</h3><p>HTML, CSS, JavaScript وReact لبناء تطبيقات تفاعلية.</p></article>
+          <article class="card"><h3>تحويل إلى تطبيق</h3><p>خطوات عملية لتحويل موقعك إلى PWA ثم APK.</p></article>
+        </section>
+      </section>
+
+      <section id="courses" class="view">
+        <h2>قائمة الدورات</h2>
+        <div class="grid">
+          <article class="card"><h3>تصميم واجهات احترافية</h3><p>من المبادئ إلى التنفيذ.</p></article>
+          <article class="card"><h3>برمجة الويب المتقدمة</h3><p>React، إدارة الحالة، وPWA.</p></article>
+          <article class="card"><h3>تسويق رقمي</h3><p>استراتيجيات لجذب الطلاب وبناء جمهور.</p></article>
+        </div>
+      </section>
+
+      <section id="about" class="view">
+        <h2>عن NEOM</h2>
+        <p>NEOM منصة أنيقة للتعلّم، مصممة لتركيز المحتوى وتجربة المستخدم. هذه الواجهة جاهزة لتكون نقطة انطلاق لمشروعك.</p>
+      </section>
+
+      <section id="contact" class="view">
+        <h2>تواصل معنا</h2>
+        <p>للتواصل: <strong>hello@neom.example</strong> — استبدل بالبريد الحقيقي عند الحاجة.</p>
+      </section>
+    </main>
+
+    <footer>
+      <small>© <span id="year"></span> NEOM — جميع الحقوق محفوظة</small>
+    </footer>
+  </div>
+
+  <!-- وظائف التنقل، تثبيت PWA، وتسجيل Service Worker -->
+  <script>
+    // عرض الأيقونة المضمّنة
+    const icBase = window.__NEOM_ICON_BASE64 || "";
+    document.getElementById('brandImg').src = icBase ? 'data:image/png;base64,'+icBase : '';
+
+    // Router بسيط (hash-less - history API)
+    function showView(path){
+      const mapping = {
+        "/": "home",
+        "/courses.html": "courses",
+        "/about.html": "about",
+        "/contact.html": "contact"
+      };
+      const id = mapping[path] || "home";
+      document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      // update history
+      if(location.pathname !== path) history.pushState({}, '', path);
+    }
+    function router(e){
+      e && e.preventDefault();
+      const path = e.currentTarget.getAttribute('data-link') || '/';
+      showView(path);
+    }
+    function routerTo(path){ showView(path); }
+
+    // handle back/forward
+    window.addEventListener('popstate', ()=> showView(location.pathname));
+
+    // set initial view based on URL (works if you open /courses.html after hosting)
+    (function initView(){
+      const p = location.pathname;
+      const allowed = ["/","/courses.html","/about.html","/contact.html"];
+      showView( allowed.includes(p) ? p : "/" );
+    })();
+
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Install prompt handling
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+    installBtn.style.display = 'none';
+    window.addEventListener('beforeinstallprompt', (e)=> {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBtn.style.display = 'inline-block';
+    });
+    installBtn.addEventListener('click', async ()=> {
+      if(!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const choice = await deferredPrompt.userChoice;
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    });
+
+    // Register service worker
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('/sw.js').then(()=> console.log('SW registered')).catch(e=> console.warn('SW failed', e));
+    }
+  </script>
+</body>
+</html>
